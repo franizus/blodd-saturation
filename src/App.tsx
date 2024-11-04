@@ -1,34 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { InputForm } from './Form'
+import {useState} from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [showResult, setShowResult] = useState(true);
+    const [result, setResult] = useState(0);
+
+    const setResultProp = (result: number) => {
+        setShowResult(false);
+        setResult(result);
+    }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <>
+          <p className="text-2xl font-bold">Saturacion Pediatrica Media</p>
+          <p className="text-2xl font-bold">(2800 msnm)</p>
+          <InputForm showResult={setResultProp}/>
+          <div hidden={showResult} className="mt-4">
+              <p className="font-bold">Media de saturación es:</p>
+              <p>{result.toFixed(2)}</p>
+              <p className="font-bold">Intervalos de confianza:</p>
+              <p>(-2) {(result - 2).toFixed(2)} | {(result + 2).toFixed(2)} (+2)</p>
+          </div>
+      </>
   )
 }
 
